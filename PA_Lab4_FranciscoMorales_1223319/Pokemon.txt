@@ -1,0 +1,10 @@
+25;1;Pikachu
+132;1;Ditto
+4;1;Charmander
+95;1;Onix
+102;1;Exeggcute
+7;1;Squirtle
+39;1;Jigglypuff
+151;1;Mew
+1;1;Bulbasaur
+65;1;Alakazam
