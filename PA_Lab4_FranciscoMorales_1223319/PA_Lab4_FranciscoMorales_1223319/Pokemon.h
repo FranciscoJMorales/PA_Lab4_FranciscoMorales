@@ -11,7 +11,7 @@ public:
 	int generación;
 	std::string nombre;
 	Pokemon *sig;
-	Pokemon*ant;
+	Pokemon *ant;
 
 	Pokemon(int num, int gen, System::String ^name);
 	~Pokemon();

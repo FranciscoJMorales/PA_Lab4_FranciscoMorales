@@ -41,7 +41,7 @@ Pokemon *Lista::Eliminar(int posicion) {
 			aux->ant = nullptr;
 			return aux;
 		}
-		else if (posicion = length - 1) {
+		else if (posicion == length - 1) {
 			length--;
 			Pokemon *aux = tail;
 			tail = tail->ant;
@@ -51,7 +51,7 @@ Pokemon *Lista::Eliminar(int posicion) {
 			return aux;
 		}
 		else {
-			EliminarRecursivo(head, posicion);
+			return EliminarRecursivo(head, posicion);
 		}
 	}
 	else {
@@ -73,6 +73,20 @@ bool Lista::Ordenado() {
 	}
 }
 
+bool Lista::OrdenadoGen() {
+	if (head == nullptr) {
+		return true;
+	}
+	else {
+		if (head->sig == nullptr) {
+			return true;
+		}
+		else {
+			return OrdenadoGenRecursivo(head);
+		}
+	}
+}
+
 void Lista::Intercambiar(Pokemon *p1, Pokemon *p2) {
 	System::String ^nombreAux = p1->Nombre();
 	int numAux = p1->numero;
@@ -83,6 +97,59 @@ void Lista::Intercambiar(Pokemon *p1, Pokemon *p2) {
 	p2->AsignarNombre(nombreAux);
 	p2->numero = numAux;
 	p2->generación = genAux;
+}
+
+int Lista::LengthIntervalo(Pokemon *inicio, Pokemon *fin) {
+	if (inicio == nullptr) {
+		return 0;
+	}
+	else {
+		if (inicio == fin) {
+			return 1;
+		}
+		else {
+			return 1 + LengthIntervalo(inicio->sig, fin);
+		}
+	}
+}
+
+Pokemon *Lista::ObtenerPrimeroGeneración(int g) {
+	if (head == nullptr) {
+		return new Pokemon(-1, -1, "");
+	}
+	else {
+		Pokemon *aux = head;
+		while (aux->generación != g && aux->sig != nullptr) {
+			aux = aux->sig;
+		}
+		if (aux->generación == g) {
+			return aux;
+		}
+		else {
+			return nullptr;
+		}
+	}
+}
+
+Pokemon *Lista::ObtenerÚltimoGeneración(int g) {
+	if (head == nullptr) {
+		return new Pokemon(-1, -1, "");
+	}
+	else {
+		Pokemon *aux = head;
+		while (aux->generación != g + 1 && aux->sig != nullptr) {
+			aux = aux->sig;
+		}
+		if (aux->generación == g) {
+			return aux;
+		}
+		else if (aux->ant->generación == g) {
+			return aux->ant;
+		}
+		else {
+			return nullptr;
+		}
+	}
 }
 
 System::String^Lista::String() {
@@ -123,9 +190,23 @@ Pokemon *Lista::EliminarRecursivo(Pokemon *pos, int cantidad) {
 }
 
 bool Lista::OrdenadoRecursivo(Pokemon *pos) {
-	if (pos->sig != nullptr) {
+	if (pos != tail) {
 		if (pos->numero <= pos->sig->numero) {
 			return OrdenadoRecursivo(pos->sig);
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		return true;
+	}
+}
+
+bool Lista::OrdenadoGenRecursivo(Pokemon *pos) {
+	if (pos != tail) {
+		if (pos->generación <= pos->sig->generación) {
+			return OrdenadoGenRecursivo(pos->sig);
 		}
 		else {
 			return false;

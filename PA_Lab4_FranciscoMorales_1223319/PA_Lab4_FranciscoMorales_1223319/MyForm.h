@@ -245,15 +245,30 @@ namespace PA_Lab4_FranciscoMorales_1223319 {
 		String ^metodo = "";
 		tiempo->Start();
 		if (bubble_Rbtn->Checked) {
-			ordenamiento->BubbleSort();
+			if (id_Rbtn->Checked) {
+				ordenamiento->BubbleSort();
+			}
+			else {
+				ordenamiento->BubbleSortGen();
+			}
 			metodo = "Bubble Sort";
 		}
 		else if (quick_Rbtn->Checked) {
-			ordenamiento->QuickSort();
+			if (id_Rbtn->Checked) {
+				ordenamiento->QuickSort();
+			}
+			else {
+				ordenamiento->QuickSortGen();
+			}
 			metodo = "Quick Sort";
 		}
 		else if (stupid_Rbtn->Checked) {
-			ordenamiento->StupidSort();
+			if (id_Rbtn->Checked) {
+				ordenamiento->StupidSort();
+			}
+			else {
+				ordenamiento->StupidSortGen();
+			}
 			metodo = "Stupid Sort";
 		}
 		tiempo->Stop();
